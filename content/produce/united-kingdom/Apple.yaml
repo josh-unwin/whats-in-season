@@ -1,0 +1,4 @@
+name: Apple
+image: http://www.myimgurl.com
+categories: ["fruit"]
+months_in_season: ["January", "Feburary", "September", "October", "November", "December"]

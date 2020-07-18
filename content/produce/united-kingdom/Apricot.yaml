@@ -1,0 +1,4 @@
+name: Apricot
+image: http://www.myimgurl.com
+categories: ["fruit"]
+months_in_season: ["May", "June", "July", "August", "September"]
