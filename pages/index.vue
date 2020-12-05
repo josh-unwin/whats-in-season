@@ -6,14 +6,34 @@
     <div class="container mx-auto">
       <LocationMessage location="United Kingdom" />
       <div class="flex justify-center items-center"></div>
-      <InSeasonList />
+      <InSeasonList :produce="produce" />
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({})
+<script>
+import Vue from "vue";
+export default Vue.extend({
+  data() {
+    return {
+      produce: [],
+      countries: []
+    }
+  },
+  async fetch() {
+    this.produce = await this.$content('produce', {deep: true})
+    .limit(20)
+    .fetch()
+
+    this.directories = this.produce.map(product => product.dir.replace("/produce/", ""));
+    this.countries = [...new Set(this.directories)];
+
+    return {
+      produce,
+      countries
+    }
+  }
+  });
 </script>
 
 <style lang="postcss">
@@ -25,26 +45,18 @@ export default Vue.extend({})
 }
 
 .container {
-  @apply w-full
+  @apply w-full;
 }
 
 .header {
-  @apply flex justify-end mx-10 py-4
+  @apply flex justify-end mx-10 py-4;
 }
 
 body {
   @apply text-charcoal;
 
-  font-family:
-  'Quicksand',
-  'Source Sans Pro',
-  -apple-system,
-  BlinkMacSystemFont,
-  'Segoe UI',
-  Roboto,
-  'Helvetica Neue',
-  Arial,
-  sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .title {
